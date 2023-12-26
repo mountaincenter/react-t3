@@ -4,6 +4,9 @@ import React, { useState, useRef, useEffect } from "react";
 import { usePostMutation } from "../_hooks/usePostMutation";
 import CustomAlert from "./CustomAlert";
 
+import { formatDistance } from "date-fns";
+import { ja } from "date-fns/locale";
+
 interface TodoProps {
   post: Post;
 }
@@ -11,7 +14,7 @@ interface TodoProps {
 const Todo = ({ post }: TodoProps) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const [isEditing, setIsEditing] = useState<boolean>(false);
-  const [editName, setEditName] = useState<string>(post.name);
+  const [editName, setEditName] = useState<string>(post.content);
   const { message, updatePost, deletePost } = usePostMutation();
 
   const handleEdit = async () => {
@@ -33,23 +36,31 @@ const Todo = ({ post }: TodoProps) => {
     }
   }, [isEditing]);
 
+  const createdAt = formatDistance(new Date(post.createdAt), new Date(), {
+    addSuffix: true,
+    locale: ja,
+  });
+
   return (
     <li
       key={post.id}
       className="flex justify-between rounded border-l-4 border-blue-500 bg-white p-4 shadow"
     >
-      {isEditing ? (
-        <input
-          ref={inputRef}
-          value={editName}
-          onChange={(e) => {
-            setEditName(e.target.value);
-          }}
-          className="mr-2 rounded border border-gray-400 px-2 py-1"
-        />
-      ) : (
-        <span className="text-gray-700">{post.name}</span>
-      )}
+      <div className="flex items-center space-x-2">
+        {isEditing ? (
+          <input
+            ref={inputRef}
+            value={editName}
+            onChange={(e) => {
+              setEditName(e.target.value);
+            }}
+            className="mr-2 rounded border border-gray-400 px-2 py-1"
+          />
+        ) : (
+          <span className="text-gray-700">{post.content}</span>
+        )}
+        <span className="text-sm text-gray-500">{createdAt}</span>
+      </div>
       <div>
         {isEditing ? (
           <button className="mr-3 text-blue-500" onClick={handleSave}>

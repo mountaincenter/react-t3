@@ -6,17 +6,17 @@ export const postHandler = {
   async getAllPosts() {
     return await prisma.post.findMany();
   },
-  async createPost(name: string) {
+  async createPost(content: string) {
     return await prisma.post.create({
       data: {
-        name,
+        content,
       },
     });
   },
-  async updatePost(id: number, name: string) {
+  async updatePost(id: number, content: string) {
     return await prisma.post.update({
       where: { id },
-      data: { name },
+      data: { content },
     });
   },
   async deletePost(id: number) {
