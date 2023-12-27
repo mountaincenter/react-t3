@@ -19,3 +19,29 @@ model Post {
 
     @@index([content])
 }
+
+model User {
+    id        Int      @id @default(autoincrement())
+    name      String?
+    nickname  String?
+    height    Float
+    age       Int?
+    gender    String?
+    targetWeight Float?
+    weight    Weight[]
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    @@index([name])
+}
+
+model Weight {
+    id       Int      @id @default(autoincrement())
+    weight   Float
+    bodyFat  Float?
+    measurementDate DateTime
+    userId   Int
+    user     User     @relation(fields: [userId], references: [id])
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+}
