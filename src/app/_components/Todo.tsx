@@ -14,7 +14,7 @@ interface TodoProps {
 const Todo = ({ post }: TodoProps) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const [isEditing, setIsEditing] = useState<boolean>(false);
-  const [editName, setEditName] = useState<string>(post.content);
+  const [editContent, setEditContent] = useState<string>(post.content);
   const { message, updatePost, deletePost } = usePostMutation();
 
   const handleEdit = async () => {
@@ -22,7 +22,7 @@ const Todo = ({ post }: TodoProps) => {
   };
 
   const handleSave = async () => {
-    updatePost.mutate({ id: post.id, name: editName });
+    updatePost.mutate({ id: post.id, content: editContent });
     setIsEditing(false);
   };
 
@@ -50,9 +50,9 @@ const Todo = ({ post }: TodoProps) => {
         {isEditing ? (
           <input
             ref={inputRef}
-            value={editName}
+            value={editContent}
             onChange={(e) => {
-              setEditName(e.target.value);
+              setEditContent(e.target.value);
             }}
             className="mr-2 rounded border border-gray-400 px-2 py-1"
           />

@@ -8,15 +8,15 @@ export const postRouter = createTRPCRouter({
   }),
 
   createPost: publicProcedure
-    .input(z.object({ name: z.string() }))
+    .input(z.object({ content: z.string() }))
     .mutation(async ({ input }) => {
-      return await postHandler.createPost(input.name);
+      return await postHandler.createPost(input.content);
     }),
 
   updatePost: publicProcedure
-    .input(z.object({ id: z.number(), name: z.string() }))
+    .input(z.object({ id: z.number(), content: z.string() }))
     .mutation(async ({ input }) => {
-      return await postHandler.updatePost(input.id, input.name);
+      return await postHandler.updatePost(input.id, input.content);
     }),
 
   deletePost: publicProcedure

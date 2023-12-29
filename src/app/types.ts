@@ -22,7 +22,7 @@ export interface Weight {
   id: number;
   weight: number;
   bodyFat?: number;
-  muasurementDate: Date;
+  measurementDate: Date;
   userId: number;
   user: User;
   createdAt: Date;
