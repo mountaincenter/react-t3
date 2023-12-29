@@ -4,11 +4,6 @@ import { type User } from "@/server/types";
 const prisma = new PrismaClient();
 
 export const userHandler = {
-  async getAllUsers(): Promise<User[]> {
-    return await prisma.user.findMany({
-      include: { weight: true },
-    });
-  },
   async getUser(id: number): Promise<User | null> {
     return await prisma.user.findUnique({
       where: { id },
