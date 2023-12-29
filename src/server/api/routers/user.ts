@@ -13,9 +13,6 @@ const userSchema = z.object({
 });
 
 export const userRouter = createTRPCRouter({
-  getAllUsers: publicProcedure.query(async () => {
-    return await userHandler.getAllUsers();
-  }),
   getUser: publicProcedure
     .input(z.object({ id: z.number() }))
     .query(async ({ input }) => {
