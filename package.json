@@ -4,7 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "next build",
+    "build": "prisma generate && next build",
     "db:push": "dotenv -e .env.development.local -- prisma db push",
     "db:migrate": "dotenv -e .env.development.local -- npx prisma migrate deploy",
     "db:status": "dotenv -e .env.development.local -- npx prisma migrate status",
