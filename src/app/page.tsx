@@ -1,12 +1,12 @@
 import { api } from "@/trpc/server";
 import TodoList from "@/app/_components/TodoList";
-import Graph from "@/app/_components/Graph";
 import WegithGraph from "@/app/_components/WeightGraph";
 import { CreatePost } from "@/app/_components/CreatePost";
+import { type User } from "@/app/types";
 
 export default async function Home() {
   const posts = await api.post.getAllPosts.query();
-  const user = await api.user.getUser.query({ id: 1 });
+  const user = (await api.user.getUser.query({ id: 1 })) as User;
   console.log("posts", posts);
   console.log("user", user);
 
@@ -16,11 +16,12 @@ export default async function Home() {
       <h1 className="mt-4 text-2xl font-bold text-gray-700">{user?.name}</h1>
       <div className="mt-5 w-full max-w-xl items-center justify-center">
         <div className="w-full rounded-lg bg-white px-8 py-6 shadow-md">
-          {/* <Graph /> */}
-          <WegithGraph
-            weights={user?.weight}
-            targetWeight={user?.targetWeight}
-          />
+          {user && (
+            <WegithGraph
+              weights={user.weight}
+              targetWeight={user.targetWeight ?? undefined}
+            />
+          )}
         </div>
       </div>
       <div className="mt-5 w-full max-w-xl items-center justify-center">

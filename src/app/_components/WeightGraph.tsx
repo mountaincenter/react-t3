@@ -31,7 +31,7 @@ ChartJS.register(
 
 interface WeightGraphProps {
   weights: Weight[];
-  targetWeight?: number;
+  targetWeight?: number | null;
 }
 
 const WeightGraph = ({ weights, targetWeight }: WeightGraphProps) => {
@@ -49,14 +49,12 @@ const WeightGraph = ({ weights, targetWeight }: WeightGraphProps) => {
     return weightRecord ? weightRecord.weight : null;
   });
 
-  let allWeightData;
-  if (targetWeight !== undefined) {
-    // targetWeightがある場合は、それも含めて計算
-    allWeightData = [...weightData, targetWeight].filter((w) => w !== null);
-  } else {
-    // targetWeightがない場合は、weightsのみを使用
-    allWeightData = weightData.filter((w) => w !== null);
-  }
+  const weightValues = weights.map((w) => w.weight).filter((w) => w !== null);
+
+  // targetWeightがnullまたはundefinedでなければ追加
+  const allWeightData =
+    targetWeight != null ? [...weightValues, targetWeight] : weightValues;
+
   const maxWeight =
     allWeightData.length > 0 ? Math.max(...allWeightData) + 5 : 0;
   const minWeight =

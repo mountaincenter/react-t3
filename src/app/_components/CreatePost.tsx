@@ -5,9 +5,9 @@ import { usePostMutation } from "../_hooks/usePostMutation";
 import CustomAlert from "./CustomAlert";
 
 export function CreatePost() {
-  const [name, setName] = useState("");
+  const [content, setContent] = useState("");
   const handleCreatePostSuccess = () => {
-    setName("");
+    setContent("");
   };
   const { createPost, message } = usePostMutation(handleCreatePostSuccess);
 
@@ -16,15 +16,18 @@ export function CreatePost() {
       <form
         onSubmit={(e) => {
           e.preventDefault();
-          createPost.mutate({ name }, { onSuccess: handleCreatePostSuccess });
+          createPost.mutate(
+            { content },
+            { onSuccess: handleCreatePostSuccess },
+          );
         }}
         className="mb-4 space-y-3"
       >
         <input
           type="text"
           placeholder="Title"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
+          value={content}
+          onChange={(e) => setContent(e.target.value)}
           className="w-full rounded-lg border px-4 py-2 focus:border-blue-400 focus:outline-none"
         />
         <button
