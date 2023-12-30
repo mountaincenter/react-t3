@@ -111,6 +111,13 @@ export function CreateWeight({ userId, initialWeight }: CreateWeightProps) {
             体脂肪率を記録しない
           </label>
         </div>
+        <button
+          type="submit"
+          className="w-full transform rounded bg-blue-500 px-4 py-2 text-white duration-200 hover:scale-95 hover:bg-blue-400"
+          disabled={createWeight.isLoading}
+        >
+          {createWeight.isLoading ? "Submitting..." : "Submit"}
+        </button>
       </form>
       {message && (
         <CustomAlert
