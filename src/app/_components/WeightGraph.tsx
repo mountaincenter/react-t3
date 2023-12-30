@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import {
   Chart as ChartJS,
   LinearScale,
@@ -35,13 +35,30 @@ interface WeightGraphProps {
 }
 
 const WeightGraph = ({ weights, targetWeight }: WeightGraphProps) => {
-  const daysInDecember = eachDayOfInterval({
-    start: startOfMonth(new Date(2023, 11, 1)),
-    end: endOfMonth(new Date(2023, 11, 31)),
+  const currentYear = new Date().getFullYear();
+  const [selectedYear, setSelectedYear] = useState(currentYear);
+  const [selectedMonth, setSelectedMonth] = useState(new Date().getMonth() + 1);
+
+  const handleYearChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setSelectedYear(parseInt(e.target.value));
+  };
+
+  const handleMonthChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setSelectedMonth(parseInt(e.target.value));
+  };
+
+  const daysInMonth = eachDayOfInterval({
+    start: startOfMonth(new Date(selectedYear, selectedMonth - 1, 1)),
+    end: endOfMonth(new Date(selectedYear, selectedMonth - 1, 1)),
   });
 
-  const labels = daysInDecember.map((date) => format(date, "d"));
-  const weightData = daysInDecember.map((date) => {
+  // const daysInDecember = eachDayOfInterval({
+  //   start: startOfMonth(new Date(2023, 11, 1)),
+  //   end: endOfMonth(new Date(2023, 11, 31)),
+  // });
+
+  const labels = daysInMonth.map((date) => format(date, "d"));
+  const weightData = daysInMonth.map((date) => {
     const day = format(date, "yyyy-MM-dd");
     const weightRecord = weights.find(
       (w) => format(w.measurementDate, "yyyy-MM-dd") === day,
@@ -72,7 +89,7 @@ const WeightGraph = ({ weights, targetWeight }: WeightGraphProps) => {
       {
         label: "目標体重",
         type: "line" as const,
-        data: Array.from({ length: daysInDecember.length }).fill(targetWeight),
+        data: Array.from({ length: daysInMonth.length }).fill(targetWeight),
         backgroundColor: "rgba(53, 162, 235, 0.5)",
       },
     ],
@@ -92,7 +109,36 @@ const WeightGraph = ({ weights, targetWeight }: WeightGraphProps) => {
 
   return (
     <>
-      <h1>{weights[0]?.weight}</h1>
+      <div className="mb-4 flex space-x-4">
+        <div className="flex items-center rounded-lg border border-gray-300 px-4 py-2 ">
+          <select
+            value={selectedYear}
+            onChange={handleYearChange}
+            className="focus:outline-none"
+          >
+            {Array.from({ length: 2 }, (_, i) => i + currentYear).map(
+              (year) => (
+                <option key={year} value={year}>
+                  {year}年
+                </option>
+              ),
+            )}
+          </select>
+        </div>
+        <div className="flex items-center rounded-lg border border-gray-300 px-4 py-2">
+          <select
+            value={selectedMonth}
+            onChange={handleMonthChange}
+            className="focus:outline-none"
+          >
+            {Array.from({ length: 12 }, (_, i) => i + 1).map((month) => (
+              <option key={month} value={month}>
+                {month}月
+              </option>
+            ))}
+          </select>
+        </div>
+      </div>
       <Chart type="bar" data={generateChartData} options={options} />
     </>
   );

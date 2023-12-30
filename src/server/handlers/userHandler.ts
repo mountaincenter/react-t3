@@ -7,7 +7,7 @@ export const userHandler = {
   async getUser(id: number): Promise<User | null> {
     return await prisma.user.findUnique({
       where: { id },
-      include: { weight: true },
+      include: { weight: { orderBy: { measurementDate: "desc" } } },
     });
   },
   async createUser(data: {
