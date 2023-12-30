@@ -11,21 +11,10 @@ export default async function Home() {
   console.log("posts", posts);
   console.log("user", user);
 
-  if (!user) null;
-
-  const hasWeightData = user.weight && user.weight.length > 0 && user.weight[0];
-
   const differentToGoal =
-    hasWeightData && user.targetWeight !== undefined
+    user.weight && user.targetWeight && user.weight[0] !== undefined
       ? parseFloat((user.weight[0].weight - user.targetWeight).toFixed(1))
       : null;
-
-  const initialWeight = hasWeightData ? user.weight[0].weight : 0;
-
-  const initialBodyFat =
-    hasWeightData && user.weight[0].bodyFat != null
-      ? user.weight[0].bodyFat.toString()
-      : "";
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-center bg-gray-200 py-2">
@@ -41,11 +30,7 @@ export default async function Home() {
         <div className="w-full rounded-lg bg-white px-8 py-6 shadow-md">
           {user && (
             <>
-              <CreateWeight
-                userId={user.id}
-                initialWeight={initialWeight}
-                initialBodyFat={initialBodyFat}
-              />
+              <CreateWeight userId={user.id} initialWeight={user.weight[0]} />
               <WegithGraph
                 weights={user.weight}
                 targetWeight={user.targetWeight ?? undefined}

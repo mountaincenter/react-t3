@@ -4,20 +4,18 @@ import { useState } from "react";
 import { useWeightMutation } from "../_hooks/useWeightMutation";
 import CustomAlert from "./CustomAlert";
 import { format } from "date-fns";
+import { type Weight } from "@/app/types";
 
 interface CreateWeightProps {
   userId: number;
-  initialWeight?: number;
-  initialBodyFat?: string;
+  initialWeight?: Weight;
 }
 
-export function CreateWeight({
-  userId,
-  initialWeight = 0,
-  initialBodyFat = "",
-}: CreateWeightProps) {
-  const [weight, setWeight] = useState(initialWeight);
-  const [bodyFat, setBodyFat] = useState(initialBodyFat);
+export function CreateWeight({ userId, initialWeight }: CreateWeightProps) {
+  const [weight, setWeight] = useState(initialWeight?.weight ?? 0);
+  const [bodyFat, setBodyFat] = useState(
+    initialWeight?.bodyFat?.toString() ?? "",
+  );
   const [isBodyFatDisabled, setIsBodyFatDisabled] = useState(false);
   const [measurementDate, setMeasurementDate] = useState(() =>
     format(new Date(), "yyyy-MM-dd"),
