@@ -116,7 +116,7 @@ export function CreateWeight({ userId, initialWeight }: CreateWeightProps) {
           className="w-full transform rounded bg-blue-500 px-4 py-2 text-white duration-200 hover:scale-95 hover:bg-blue-400"
           disabled={createWeight.isLoading}
         >
-          {createWeight.isLoading ? "Submitting..." : "Submit"}
+          {createWeight.isLoading ? "登録中..." : "登録"}
         </button>
       </form>
       {message && (

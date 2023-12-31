@@ -16,6 +16,7 @@ import {
 import { Chart } from "react-chartjs-2";
 import { type Weight } from "@/app/types";
 import { eachDayOfInterval, startOfMonth, endOfMonth, format } from "date-fns";
+import DateSelector from "./DateSelector";
 
 ChartJS.register(
   LinearScale,
@@ -39,23 +40,15 @@ const WeightGraph = ({ weights, targetWeight }: WeightGraphProps) => {
   const [selectedYear, setSelectedYear] = useState(currentYear);
   const [selectedMonth, setSelectedMonth] = useState(new Date().getMonth() + 1);
 
-  const handleYearChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelectedYear(parseInt(e.target.value));
-  };
-
-  const handleMonthChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelectedMonth(parseInt(e.target.value));
+  const handleDateChange = (year: number, month: number) => {
+    setSelectedYear(year);
+    setSelectedMonth(month);
   };
 
   const daysInMonth = eachDayOfInterval({
     start: startOfMonth(new Date(selectedYear, selectedMonth - 1, 1)),
     end: endOfMonth(new Date(selectedYear, selectedMonth - 1, 1)),
   });
-
-  // const daysInDecember = eachDayOfInterval({
-  //   start: startOfMonth(new Date(2023, 11, 1)),
-  //   end: endOfMonth(new Date(2023, 11, 31)),
-  // });
 
   const labels = daysInMonth.map((date) => format(date, "d"));
   const weightData = daysInMonth.map((date) => {
@@ -68,7 +61,6 @@ const WeightGraph = ({ weights, targetWeight }: WeightGraphProps) => {
 
   const weightValues = weights.map((w) => w.weight).filter((w) => w !== null);
 
-  // targetWeightがnullまたはundefinedでなければ追加
   const allWeightData =
     targetWeight != null ? [...weightValues, targetWeight] : weightValues;
 
@@ -109,36 +101,7 @@ const WeightGraph = ({ weights, targetWeight }: WeightGraphProps) => {
 
   return (
     <>
-      <div className="mb-4 flex space-x-4">
-        <div className="flex items-center rounded-lg border border-gray-300 px-4 py-2 ">
-          <select
-            value={selectedYear}
-            onChange={handleYearChange}
-            className="focus:outline-none"
-          >
-            {Array.from({ length: 2 }, (_, i) => i + currentYear).map(
-              (year) => (
-                <option key={year} value={year}>
-                  {year}年
-                </option>
-              ),
-            )}
-          </select>
-        </div>
-        <div className="flex items-center rounded-lg border border-gray-300 px-4 py-2">
-          <select
-            value={selectedMonth}
-            onChange={handleMonthChange}
-            className="focus:outline-none"
-          >
-            {Array.from({ length: 12 }, (_, i) => i + 1).map((month) => (
-              <option key={month} value={month}>
-                {month}月
-              </option>
-            ))}
-          </select>
-        </div>
-      </div>
+      <DateSelector onDateChange={handleDateChange} />
       <Chart type="bar" data={generateChartData} options={options} />
     </>
   );
