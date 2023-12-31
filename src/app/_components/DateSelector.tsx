@@ -5,7 +5,7 @@ interface DateSelectorProps {
 }
 
 const DateSelector: React.FC<DateSelectorProps> = ({ onDateChange }) => {
-  const currentYear = new Date().getFullYear();
+  const currentYear = new Date().getFullYear() - 1;
   const [selectedYear, setSelectedYear] = useState(currentYear);
   const [selectedMonth, setSelectedMonth] = useState(new Date().getMonth() + 1);
 

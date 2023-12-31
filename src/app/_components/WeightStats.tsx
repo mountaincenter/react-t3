@@ -13,7 +13,7 @@ const WeightStats: React.FC<WeightStatsProps> = ({
 }) => {
   const bmi = ((weight / height / height) * 10000).toFixed(2);
   return (
-    <div className="flex items-center justify-between  p-4 ">
+    <div className="flex items-center justify-between  p-4">
       <div className="flex flex-col items-center">
         <div className="text-sm text-gray-500">体脂肪率</div>
         <div className="text-lg font-semibold">{bodyFat}%</div>
