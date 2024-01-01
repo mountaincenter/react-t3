@@ -11,7 +11,9 @@ export const useWeightMutation = (onCreateWeightSuccess?: () => void) => {
       setMessage("体重を登録しました");
       setTimeout(() => setMessage(""), 3000);
       router.refresh();
-      if (onCreateWeightSuccess) onCreateWeightSuccess();
+      if (onCreateWeightSuccess) {
+        onCreateWeightSuccess();
+      }
     },
     onError: () => {
       setMessage("体重の登録に失敗しました");
@@ -24,6 +26,9 @@ export const useWeightMutation = (onCreateWeightSuccess?: () => void) => {
       setMessage("体重を更新しました");
       setTimeout(() => setMessage(""), 3000);
       router.refresh();
+      if (onCreateWeightSuccess) {
+        onCreateWeightSuccess();
+      }
     },
     onError: () => {
       setMessage("体重の更新に失敗しました");
@@ -36,6 +41,9 @@ export const useWeightMutation = (onCreateWeightSuccess?: () => void) => {
       setMessage("体重を削除しました");
       setTimeout(() => setMessage(""), 3000);
       router.refresh();
+      if (onCreateWeightSuccess) {
+        onCreateWeightSuccess();
+      }
     },
     onError: () => {
       setMessage("体重の削除に失敗しました");

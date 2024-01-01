@@ -21,6 +21,10 @@
     "esm": true
   },
   "dependencies": {
+    "@fullcalendar/core": "^6.1.10",
+    "@fullcalendar/daygrid": "^6.1.10",
+    "@fullcalendar/interaction": "^6.1.10",
+    "@fullcalendar/react": "^6.1.10",
     "@prisma/client": "^5.7.1",
     "@t3-oss/env-nextjs": "^0.7.1",
     "@tanstack/react-query": "^4.36.1",
@@ -32,6 +36,7 @@
     "date-fns": "^3.0.6",
     "dotenv-cli": "^7.3.0",
     "next": "^14.0.3",
+    "next-transpile-modules": "^10.0.1",
     "react": "18.2.0",
     "react-chartjs-2": "^5.2.0",
     "react-dom": "18.2.0",

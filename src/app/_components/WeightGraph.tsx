@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import {
   Chart as ChartJS,
   LinearScale,
@@ -15,8 +15,9 @@ import {
 } from "chart.js";
 import { Chart } from "react-chartjs-2";
 import { type Weight } from "@/app/types";
-import { eachDayOfInterval, startOfMonth, endOfMonth, format } from "date-fns";
 import DateSelector from "./DateSelector";
+import useDateSelection from "../_hooks/useDateSelection";
+import useWeightData from "../_hooks/useWeightData";
 
 ChartJS.register(
   LinearScale,
@@ -36,30 +37,8 @@ interface WeightGraphProps {
 }
 
 const WeightGraph = ({ weights, targetWeight }: WeightGraphProps) => {
-  const currentYear = new Date().getFullYear();
-  const [selectedYear, setSelectedYear] = useState(currentYear);
-  const [selectedMonth, setSelectedMonth] = useState(new Date().getMonth() + 1);
-
-  const handleDateChange = (year: number, month: number) => {
-    setSelectedYear(year);
-    setSelectedMonth(month);
-  };
-
-  const daysInMonth = eachDayOfInterval({
-    start: startOfMonth(new Date(selectedYear, selectedMonth - 1, 1)),
-    end: endOfMonth(new Date(selectedYear, selectedMonth - 1, 1)),
-  });
-
-  const labels = daysInMonth.map((date) => format(date, "d"));
-  const weightData = daysInMonth.map((date) => {
-    const day = format(date, "yyyy-MM-dd");
-    const weightRecord = weights.find(
-      (w) => format(w.measurementDate, "yyyy-MM-dd") === day,
-    );
-    return weightRecord ? weightRecord.weight : null;
-  });
-
-  const weightValues = weights.map((w) => w.weight).filter((w) => w !== null);
+  const { handleDateChange, labels, daysInMonth } = useDateSelection();
+  const { weightData, weightValues } = useWeightData(weights, daysInMonth);
 
   const allWeightData =
     targetWeight != null ? [...weightValues, targetWeight] : weightValues;
@@ -83,6 +62,7 @@ const WeightGraph = ({ weights, targetWeight }: WeightGraphProps) => {
         type: "line" as const,
         data: Array.from({ length: daysInMonth.length }).fill(targetWeight),
         backgroundColor: "rgba(53, 162, 235, 0.5)",
+        pointRadius: 0,
       },
     ],
   };
@@ -93,6 +73,26 @@ const WeightGraph = ({ weights, targetWeight }: WeightGraphProps) => {
         beginAtZero: false,
         min: minWeight,
         max: maxWeight,
+        grid: {
+          display: false,
+        },
+        ticks: {
+          font: {
+            size: 10,
+          },
+        },
+      },
+      x: {
+        ticks: {
+          maxRotation: 0,
+          minRotation: 0,
+          font: {
+            size: 10,
+          },
+        },
+        grid: {
+          display: false,
+        },
       },
     },
   };

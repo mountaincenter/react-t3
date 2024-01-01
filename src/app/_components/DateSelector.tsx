@@ -1,56 +1,43 @@
+"use client";
+
 import React, { useState } from "react";
+import { addMonths, subMonths, format } from "date-fns";
 
 interface DateSelectorProps {
-  onDateChange: (year: number, month: number) => void;
+  onDateChange: (date: Date) => void;
 }
 
 const DateSelector: React.FC<DateSelectorProps> = ({ onDateChange }) => {
-  const currentYear = new Date().getFullYear();
-  const [selectedYear, setSelectedYear] = useState(currentYear);
-  const [selectedMonth, setSelectedMonth] = useState(new Date().getMonth() + 1);
+  const [selectedDate, setSelectedDate] = useState(new Date());
 
-  const handleYearChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const newYear = parseInt(e.target.value);
-    setSelectedYear(newYear);
-    onDateChange(newYear, selectedMonth);
+  const handlePreviouMonth = () => {
+    const newDate = subMonths(selectedDate, 1);
+    setSelectedDate(newDate);
+    onDateChange(newDate);
   };
 
-  const handleMonthChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const newMonth = parseInt(e.target.value);
-    setSelectedMonth(newMonth);
-    onDateChange(selectedYear, newMonth);
+  const handleNextMonth = () => {
+    const newDate = addMonths(selectedDate, 1);
+    setSelectedDate(newDate);
+    onDateChange(newDate);
   };
 
   return (
-    <div className="mb-4 flex space-x-4">
-      <div className="flex items-center rounded-lg border border-gray-300 px-4 py-2 ">
-        <select
-          value={selectedYear}
-          onChange={handleYearChange}
-          className="bg-transparent focus:bg-transparent focus:outline-none"
-        >
-          {Array.from({ length: 2 }, (_, i) => i + currentYear - 1).map(
-            (year) => (
-              <option key={year} value={year}>
-                {year}年
-              </option>
-            ),
-          )}
-        </select>
+    <div className="mb-4 flex justify-center">
+      <button
+        onClick={handlePreviouMonth}
+        className="px-2 text-sm text-gray-500"
+      >
+        {"<"}
+      </button>
+      <div className="mx-4">
+        <span className="text-sm text-gray-500">
+          {format(selectedDate, "yyyy年MM月")}
+        </span>
       </div>
-      <div className="flex items-center rounded-lg border border-gray-300 px-4 py-2">
-        <select
-          value={selectedMonth}
-          onChange={handleMonthChange}
-          className="bg-transparent focus:bg-transparent focus:outline-none"
-        >
-          {Array.from({ length: 12 }, (_, i) => i + 1).map((month) => (
-            <option key={month} value={month}>
-              {month}月
-            </option>
-          ))}
-        </select>
-      </div>
+      <button onClick={handleNextMonth} className="px-2 text-sm text-gray-500">
+        {">"}
+      </button>
     </div>
   );
 };
