@@ -5,7 +5,7 @@ interface DateSelectorProps {
 }
 
 const DateSelector: React.FC<DateSelectorProps> = ({ onDateChange }) => {
-  const currentYear = new Date().getFullYear() - 1;
+  const currentYear = new Date().getFullYear();
   const [selectedYear, setSelectedYear] = useState(currentYear);
   const [selectedMonth, setSelectedMonth] = useState(new Date().getMonth() + 1);
 
@@ -27,13 +27,15 @@ const DateSelector: React.FC<DateSelectorProps> = ({ onDateChange }) => {
         <select
           value={selectedYear}
           onChange={handleYearChange}
-          className="focus:outline-none"
+          className="bg-transparent focus:bg-transparent focus:outline-none"
         >
-          {Array.from({ length: 2 }, (_, i) => i + currentYear).map((year) => (
-            <option key={year} value={year}>
-              {year}年
-            </option>
-          ))}
+          {Array.from({ length: 2 }, (_, i) => i + currentYear - 1).map(
+            (year) => (
+              <option key={year} value={year}>
+                {year}年
+              </option>
+            ),
+          )}
         </select>
       </div>
       <div className="flex items-center rounded-lg border border-gray-300 px-4 py-2">

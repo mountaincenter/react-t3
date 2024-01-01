@@ -67,21 +67,19 @@ const WeightDiff: React.FC<WeightDiffProps> = ({
       <div className="flex items-center justify-around py-3">
         <div className="flex flex-col items-center text-center">
           <div className="flex flex-col items-center text-center">
-            <div className="text-lg font-semibold">
+            <div className="text-xl font-semibold">
               {weightDiff} kg{" "}
               <span className={`${weightColor} ml-2`}>{weightSymbol}</span>
             </div>
           </div>
           <div className="mt-1 text-sm text-gray-500">{weightMessage}</div>
         </div>
-        <div className="px-4">
-          <div className="flex flex-col items-center text-center">
-            <div className="text-lg font-semibold">
-              {bodyFatDiff}%{" "}
-              <span className={`${bodyFatColor} ml-2`}>{bodyFatSymbol}</span>
-            </div>
-            <div className="mt-1 text-sm text-gray-500">{bodyFatMessage}</div>
+        <div className="flex flex-col items-center px-4 text-center">
+          <div className="text-xl font-semibold">
+            {bodyFatDiff}%{" "}
+            <span className={`${bodyFatColor} ml-2`}>{bodyFatSymbol}</span>
           </div>
+          <div className="mt-1 text-sm text-gray-500">{bodyFatMessage}</div>
         </div>
       </div>
     </div>
