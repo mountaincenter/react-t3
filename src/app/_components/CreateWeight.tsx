@@ -61,7 +61,7 @@ export function CreateWeight({ userId, initialWeight }: CreateWeightProps) {
               placeholder="体重"
               value={weight}
               onChange={(e) => setWeight(parseFloat(e.target.value))}
-              className="w-full focus:outline-none"
+              className="w-full max-w-[calc(100%-1rem)] p-2 text-sm focus:outline-none"
               step="0.1"
             />
             <span className="ml-2 text-sm text-gray-500">kg</span>
@@ -74,8 +74,8 @@ export function CreateWeight({ userId, initialWeight }: CreateWeightProps) {
                 placeholder="体脂肪率"
                 value={bodyFat}
                 onChange={handleBodyFatChange}
-                className="w-full focus:outline-none"
-                step="0.1"
+                className="w-full max-w-[calc(100%-1rem)] p-2 text-sm focus:outline-none"
+                step="0.01"
               />
               <span className="ml-2 text-sm text-gray-500">%</span>
             </div>
@@ -87,7 +87,7 @@ export function CreateWeight({ userId, initialWeight }: CreateWeightProps) {
               placeholder="計測日"
               value={measurementDate}
               onChange={(e) => setMeasurementDate(e.target.value)}
-              className="w-full focus:outline-none"
+              className="w-full bg-transparent focus:bg-transparent focus:outline-none"
             />
           </div>
         </div>

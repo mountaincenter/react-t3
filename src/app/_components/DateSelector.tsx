@@ -42,7 +42,7 @@ const DateSelector: React.FC<DateSelectorProps> = ({ onDateChange }) => {
         <select
           value={selectedMonth}
           onChange={handleMonthChange}
-          className="focus:outline-none"
+          className="bg-transparent focus:bg-transparent focus:outline-none"
         >
           {Array.from({ length: 12 }, (_, i) => i + 1).map((month) => (
             <option key={month} value={month}>
