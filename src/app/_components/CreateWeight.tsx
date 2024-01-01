@@ -55,33 +55,33 @@ export function CreateWeight({ userId, initialWeight }: CreateWeightProps) {
         className="mb-4 space-y-3"
       >
         <div className="flex space-x-4">
-          <div className="flex items-center rounded-lg border border-gray-300 px-4 py-2 focus-within:border-blue-400">
+          <div className="flex items-center rounded-lg border border-gray-300 px-3 py-2 focus-within:border-blue-400">
             <input
               type="number"
               placeholder="体重"
               value={weight}
               onChange={(e) => setWeight(parseFloat(e.target.value))}
-              className="w-full max-w-[calc(100%-1rem)] p-2 text-sm focus:outline-none"
+              className="w-full focus:outline-none"
               step="0.1"
             />
-            <span className="ml-2 text-sm text-gray-500">kg</span>
+            <span className=" text-sm text-gray-500">kg</span>
           </div>
 
           {!isBodyFatDisabled && (
-            <div className="flex items-center rounded-lg border border-gray-300 px-4 py-2 focus-within:border-blue-400">
+            <div className="flex items-center rounded-lg border border-gray-300 px-3 py-2 focus-within:border-blue-400">
               <input
                 type="number"
                 placeholder="体脂肪率"
                 value={bodyFat}
                 onChange={handleBodyFatChange}
-                className="w-full max-w-[calc(100%-1rem)] p-2 text-sm focus:outline-none"
+                className="w-full focus:outline-none"
                 step="0.01"
               />
-              <span className="ml-2 text-sm text-gray-500">%</span>
+              <span className="text-sm text-gray-500">%</span>
             </div>
           )}
 
-          <div className="flex items-center rounded-lg border border-gray-300 px-4 py-2 focus-within:border-blue-400">
+          <div className="flex items-center rounded-lg border border-gray-300 px-3 py-2 focus-within:border-blue-400">
             <input
               type="date"
               placeholder="計測日"
