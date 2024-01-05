@@ -14,6 +14,7 @@ import {
   BarController,
 } from "chart.js";
 import { Chart } from "react-chartjs-2";
+import zoomPlugin from "chartjs-plugin-zoom";
 import { type Weight } from "@/app/types";
 import DateSelector from "./DateSelector";
 import useDateSelection from "../_hooks/useDateSelection";
@@ -29,6 +30,7 @@ ChartJS.register(
   Tooltip,
   LineController,
   BarController,
+  zoomPlugin,
 );
 
 interface WeightGraphProps {

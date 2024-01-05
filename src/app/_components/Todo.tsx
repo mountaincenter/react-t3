@@ -44,7 +44,7 @@ const Todo = ({ post }: TodoProps) => {
   return (
     <li
       key={post.id}
-      className="flex justify-between rounded border-l-4 border-blue-500 bg-white p-4 shadow"
+      className="flex justify-between rounded border-l-4 border-blue-500 bg-white p-3 shadow"
     >
       <div className="flex items-center space-x-2">
         {isEditing ? (

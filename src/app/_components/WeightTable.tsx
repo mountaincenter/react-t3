@@ -1,62 +1,56 @@
 import React from "react";
-import { type Weight } from "@/app/types";
+import type { Weight, User } from "@/app/types";
 import useWeightData from "@/app/_hooks/useWeightData";
+import WeightTableRow from "@/app/_components/WeightTableRow";
 
 interface WeightTableProps {
   weights: Weight[];
   labels: string[];
   daysInMonth: Date[];
+  user: User;
 }
 
 const WeightTable: React.FC<WeightTableProps> = ({
   weights,
   labels,
   daysInMonth,
+  user,
 }) => {
-  const { weightData, bodyFatData } = useWeightData(weights, daysInMonth);
-
-  console.log("labels", labels);
-  console.log("weightData", weightData);
+  const { weightDatum } = useWeightData(weights, daysInMonth);
 
   return (
     <div className="overflow-x-auto">
       <table className="min-w-full divide-y divide-gray-200">
-        <thead className="bg-gray-50">
+        <thead>
           <tr>
             <th
               scope="col"
-              className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500"
+              className="px-6 py-3 text-center text-xs font-medium uppercase tracking-wider text-gray-500"
             >
               Date
             </th>
             <th
               scope="col"
-              className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500"
+              className="px-6 py-3 text-center text-xs font-medium uppercase tracking-wider text-gray-500"
             >
               Weight kg
             </th>
             <th
               scope="col"
-              className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500"
+              className="px-6 py-3 text-center text-xs font-medium uppercase tracking-wider text-gray-500"
             >
               Body Fat %
             </th>
           </tr>
         </thead>
         <tbody className="divide-y divide-gray-200 bg-white">
-          {/* Loop through each day of the month */}
           {daysInMonth.map((date, i) => (
-            <tr key={i}>
-              <td className="whitespace-nowrap px-6 py-4 text-sm font-medium text-gray-500">
-                {labels[i]} 日
-              </td>
-              <td className="whitespace-nowrap px-6 py-4 text-sm text-gray-500">
-                {weightData[i] !== null ? weightData[i] : "-"}
-              </td>
-              <td className="whitespace-nowrap px-6 py-4 text-sm text-gray-500">
-                {bodyFatData[i] !== null ? bodyFatData[i] : "-"}
-              </td>
-            </tr>
+            <WeightTableRow
+              key={i}
+              label={labels[i] ?? "No Date"}
+              weightDatum={weightDatum[i] ?? null}
+              userId={user.id}
+            />
           ))}
         </tbody>
       </table>

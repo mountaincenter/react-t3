@@ -55,7 +55,7 @@ export default async function Home() {
       </div>
       <div className="mt-5 w-full max-w-xl items-center justify-center">
         <div className="w-full rounded-lg bg-white px-8 py-6 shadow-md">
-          <WeightDashbord weights={user.weight} />
+          <WeightDashbord weights={user.weight} user={user} />
         </div>
       </div>
       <div className="mt-5 w-full max-w-xl items-center justify-center">

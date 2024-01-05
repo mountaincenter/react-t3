@@ -4,13 +4,14 @@ import React from "react";
 import WeightTable from "./WeightTable";
 import DateSelector from "./DateSelector";
 import useDateSelection from "@/app/_hooks/useDateSelection";
-import { type Weight } from "@/app/types";
+import type { Weight, User } from "@/app/types";
 
 interface WeightDashbordProps {
   weights: Weight[];
+  user: User;
 }
 
-const WeightDashbord: React.FC<WeightDashbordProps> = ({ weights }) => {
+const WeightDashbord: React.FC<WeightDashbordProps> = ({ weights, user }) => {
   const { handleDateChange, labels, daysInMonth } = useDateSelection();
   return (
     <div>
@@ -19,6 +20,7 @@ const WeightDashbord: React.FC<WeightDashbordProps> = ({ weights }) => {
         weights={weights}
         labels={labels}
         daysInMonth={daysInMonth}
+        user={user}
       />
     </div>
   );
