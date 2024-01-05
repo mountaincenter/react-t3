@@ -32,17 +32,17 @@ const WeightTableRow: React.FC<WeightTableRowProps> = ({
     setIsEditing(true);
   };
 
-  console.log("weightDatumRow", weightDatum);
-  console.log("userId", userId);
-  console.log("selectedYear", selectedYear);
-  console.log("selectedMonth", selectedMonth);
+  // console.log("weightDatumRow", weightDatum);
+  // console.log("userId", userId);
+  // console.log("selectedYear", selectedYear);
+  // console.log("selectedMonth", selectedMonth);
 
   const measurementDate = new Date(
     selectedYear,
     selectedMonth - 1,
     Number(label),
   );
-  console.log("measurementDate", measurementDate);
+  // console.log("measurementDate", measurementDate);
 
   const handleSave = async () => {
     // weight と bodyFat は null でなく提供されると仮定
@@ -110,7 +110,7 @@ const WeightTableRow: React.FC<WeightTableRowProps> = ({
               className="mr-2 w-full rounded border border-gray-400 px-2 py-1"
             />
           ) : (
-            weightDatum?.weight ?? "-"
+            <span className="text-gray-700">{weightDatum?.weight ?? "-"}</span>
           )}
         </td>
         <td className={"whitespace-nowrap px-2 py-4 text-center text-sm"}>
@@ -125,7 +125,7 @@ const WeightTableRow: React.FC<WeightTableRowProps> = ({
               className="mr-2 w-full rounded border border-gray-400 px-2 py-1"
             />
           ) : (
-            weightDatum?.bodyFat ?? "-"
+            <span className="text-gray-700">{weightDatum?.bodyFat ?? "-"}</span>
           )}
         </td>
         <td>

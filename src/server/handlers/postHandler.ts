@@ -13,10 +13,10 @@ export const postHandler = {
       },
     });
   },
-  async updatePost(id: number, content: string) {
+  async updatePost(id: number, content: string, completed: boolean) {
     return await prisma.post.update({
       where: { id },
-      data: { content },
+      data: { content, completed },
     });
   },
   async deletePost(id: number) {

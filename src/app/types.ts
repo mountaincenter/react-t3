@@ -1,6 +1,7 @@
 export interface Post {
   id: number;
   content: string;
+  completed: boolean;
   createdAt: Date;
   updatedAt: Date;
 }

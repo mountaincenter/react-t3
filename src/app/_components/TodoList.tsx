@@ -5,8 +5,8 @@ import type { Post } from "@/app/types";
 interface TodoListProps {
   posts: Post[];
 }
-
 const TodoList = ({ posts }: TodoListProps) => {
+  console.log("posts", posts);
   return (
     <>
       <ul className="space-y-3">
