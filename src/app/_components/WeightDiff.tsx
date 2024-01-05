@@ -74,7 +74,10 @@ const WeightDiff: React.FC<WeightDiffProps> = ({
           </div>
           <div className="mt-1 text-sm text-gray-500">体重{weightMessage}</div>
         </div>
-        <div className="flex flex-col items-center px-4 text-center">
+        <div className="flex flex-col items-center text-center">
+          <div className="mt-1 text-sm text-gray-500">|</div>
+        </div>
+        <div className="flex flex-col items-center text-center">
           <div className="text-xl font-semibold">
             {bodyFatDiff}%{" "}
             <span className={`${bodyFatColor} ml-2`}>{bodyFatSymbol}</span>
