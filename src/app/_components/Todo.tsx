@@ -7,6 +7,13 @@ import CustomAlert from "./CustomAlert";
 import { formatDistance } from "date-fns";
 import { ja } from "date-fns/locale";
 
+import {
+  PencilSquareIcon,
+  TrashIcon,
+  CheckIcon,
+  XMarkIcon,
+} from "@heroicons/react/24/outline";
+
 interface TodoProps {
   post: Post;
 }
@@ -34,6 +41,10 @@ const Todo = ({ post }: TodoProps) => {
 
   const handleDelete = async () => {
     deletePost.mutate({ id: post.id });
+  };
+
+  const handleCancel = async () => {
+    setIsEditing(false);
   };
 
   const handleToggleCompleted = async () => {
@@ -86,19 +97,29 @@ const Todo = ({ post }: TodoProps) => {
         )}
         <span className="text-sm text-gray-500">{createdAt}</span>
       </div>
-      <div>
+      <div className="flex items-center">
         {isEditing ? (
-          <button className="mr-3 text-blue-500" onClick={handleSave}>
-            save
-          </button>
+          <CheckIcon
+            className="mr-3 h-5 w-5 cursor-pointer text-blue-500"
+            onClick={handleSave}
+          />
         ) : (
-          <button className="mr-3 text-green-500" onClick={handleEdit}>
-            edit
-          </button>
+          <PencilSquareIcon
+            className="mr-3 h-5 w-5 cursor-pointer text-gray-500"
+            onClick={handleEdit}
+          />
         )}
-        <button className="text-red-500" onClick={handleDelete}>
-          delete
-        </button>
+        {isEditing ? (
+          <XMarkIcon
+            className="h-5 w-5 cursor-pointer text-gray-500"
+            onClick={handleCancel}
+          />
+        ) : (
+          <TrashIcon
+            className="h-5 w-5 cursor-pointer text-red-500"
+            onClick={handleDelete}
+          />
+        )}
       </div>
       {message && (
         <CustomAlert

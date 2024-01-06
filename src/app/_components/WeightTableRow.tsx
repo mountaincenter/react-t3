@@ -149,9 +149,11 @@ const WeightTableRow: React.FC<WeightTableRowProps> = ({
               cancel
             </button>
           ) : (
-            <button className="text-red-500" onClick={handleDelete}>
-              delete
-            </button>
+            weightDatum && (
+              <button className="text-red-500" onClick={handleDelete}>
+                delete
+              </button>
+            )
           )}
         </td>
       </tr>
