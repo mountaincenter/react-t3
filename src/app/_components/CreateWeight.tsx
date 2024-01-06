@@ -28,8 +28,8 @@ export function CreateWeight({ userId, initialWeight }: CreateWeightProps) {
   };
 
   const handleCreateWeightSuccess = () => {
-    setWeight(0);
-    setBodyFat("");
+    setWeight(initialWeight?.weight ?? 0);
+    setBodyFat(initialWeight?.bodyFat?.toString() ?? "");
     setMeasurementDate(() => format(new Date(), "yyyy-MM-dd"));
   };
 
