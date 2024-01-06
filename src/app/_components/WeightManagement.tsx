@@ -19,8 +19,8 @@ const WeightManagement = ({ weights, user }: WeightManagementProps) => {
         <button
           className={`flex-grow py-2 text-center transition duration-300 ease-in-out ${
             selectedTab === "diff"
-              ? "border-blue-500 bg-blue-500 text-white"
-              : "text-gray-700 hover:bg-gray-100"
+              ? "border-b border-blue-500 text-gray-700"
+              : "text-gray-700 hover:bg-blue-100"
           }`}
           onClick={() => setSelectedTab("diff")}
         >
@@ -29,8 +29,8 @@ const WeightManagement = ({ weights, user }: WeightManagementProps) => {
         <button
           className={`flex-grow  py-2 text-center transition duration-300 ease-in-out ${
             selectedTab === "graph"
-              ? "border-blue-500 bg-blue-500 text-white"
-              : "text-gray-700 hover:bg-gray-100"
+              ? "border-b border-blue-500 text-gray-700"
+              : "text-gray-700 hover:bg-blue-100"
           }`}
           onClick={() => setSelectedTab("graph")}
         >
@@ -39,8 +39,8 @@ const WeightManagement = ({ weights, user }: WeightManagementProps) => {
         <button
           className={`flex-grow  py-2 text-center transition duration-300 ease-in-out ${
             selectedTab === "dashboard"
-              ? "border-blue-500 bg-blue-500 text-white"
-              : "text-gray-700 hover:bg-gray-100"
+              ? "border-b border-blue-500 text-gray-700"
+              : "text-gray-700 hover:bg-blue-100"
           }`}
           onClick={() => setSelectedTab("dashboard")}
         >
