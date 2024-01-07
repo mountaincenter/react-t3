@@ -10,44 +10,46 @@ interface WeightManagementProps {
   user: User;
 }
 
+interface TabButtonProps {
+  isSelected: boolean;
+  onClick: () => void;
+  children: React.ReactNode;
+}
+
+const TabButton = ({ isSelected, onClick, children }: TabButtonProps) => (
+  <button
+    className={`flex-grow py-2 text-center transition duration-300 ease-in-out ${
+      isSelected
+        ? "border-b-2 border-blue-500 text-gray-700"
+        : "text-gray-700 hover:bg-gray-100"
+    }`}
+    onClick={onClick}
+  >
+    {children}
+  </button>
+);
+
 const WeightManagement = ({ weights, user }: WeightManagementProps) => {
   const [selectedTab, setSelectedTab] = useState("diff");
+  const tabs = [
+    { key: "diff", label: "体重" },
+    { key: "graph", label: "グラフ" },
+    { key: "dashboard", label: "日別グラフ" },
+  ];
 
   return (
     <div className="p-4">
-      <div className="mb-4 flex ">
-        <button
-          className={`flex-grow py-2 text-center transition duration-300 ease-in-out ${
-            selectedTab === "diff"
-              ? "border-b border-blue-500 text-gray-700"
-              : "text-gray-700 hover:bg-blue-100"
-          }`}
-          onClick={() => setSelectedTab("diff")}
-        >
-          体重差
-        </button>
-        <button
-          className={`flex-grow  py-2 text-center transition duration-300 ease-in-out ${
-            selectedTab === "graph"
-              ? "border-b border-blue-500 text-gray-700"
-              : "text-gray-700 hover:bg-blue-100"
-          }`}
-          onClick={() => setSelectedTab("graph")}
-        >
-          グラフ
-        </button>
-        <button
-          className={`flex-grow  py-2 text-center transition duration-300 ease-in-out ${
-            selectedTab === "dashboard"
-              ? "border-b border-blue-500 text-gray-700"
-              : "text-gray-700 hover:bg-blue-100"
-          }`}
-          onClick={() => setSelectedTab("dashboard")}
-        >
-          日別表
-        </button>
+      <div className="mb-4 flex">
+        {tabs.map((tab) => (
+          <TabButton
+            key={tab.key}
+            isSelected={selectedTab === tab.key}
+            onClick={() => setSelectedTab(tab.key)}
+          >
+            {tab.label}
+          </TabButton>
+        ))}
       </div>
-
       <div>
         {selectedTab === "diff" &&
           weights.length > 1 &&

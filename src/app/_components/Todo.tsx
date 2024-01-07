@@ -24,7 +24,7 @@ const Todo = ({ post }: TodoProps) => {
   const [editContent, setEditContent] = useState<string>(post.content);
   const [editCompleted, setEditCompleted] = useState<boolean>(post.completed);
   const { message, updatePost, deletePost } = usePostMutation();
-  console.log("post", post);
+  // console.log("post", post);
 
   const handleEdit = async () => {
     setIsEditing(true);

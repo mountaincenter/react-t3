@@ -16,7 +16,10 @@ const WeightTable: React.FC<WeightTableProps> = ({
   daysInMonth,
   user,
 }) => {
-  const { weightDatum } = useWeightData(weights, daysInMonth);
+  const { weightDatum, maxWeightThisMonth, minWeightThisMonth } = useWeightData(
+    weights,
+    daysInMonth,
+  );
 
   return (
     <div className="overflow-x-auto">
@@ -50,6 +53,8 @@ const WeightTable: React.FC<WeightTableProps> = ({
               label={labels[i] ?? "No Date"}
               weightDatum={weightDatum[i] ?? null}
               userId={user.id}
+              maxWeightThisMonth={maxWeightThisMonth}
+              minWeightThisMonth={minWeightThisMonth}
             />
           ))}
         </tbody>

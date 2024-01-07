@@ -18,6 +18,15 @@ const useWeightData = (weights: Weight[], daysInMonth: Date[]) => {
     return weightRecord ?? null;
   });
 
+  const monthWeightValues = weightDatum
+    .map((weightData) => (weightData ? weightData.weight : null))
+    .filter((weight): weight is number => weight != null);
+
+  const maxWeightThisMonth =
+    monthWeightValues.length > 0 ? Math.max(...monthWeightValues) : null;
+  const minWeightThisMonth =
+    monthWeightValues.length > 0 ? Math.min(...monthWeightValues) : null;
+
   const weightValues = weights.map((w) => w.weight).filter((w) => w !== null);
 
   const bodyFatData = daysInMonth.map((date) => {
@@ -64,6 +73,8 @@ const useWeightData = (weights: Weight[], daysInMonth: Date[]) => {
     weightValues,
     bodyFatValues,
     weightDatum,
+    maxWeightThisMonth,
+    minWeightThisMonth,
     movingAverages,
   };
 };

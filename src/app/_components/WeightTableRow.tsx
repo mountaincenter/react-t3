@@ -5,16 +5,28 @@ import CustomAlert from "./CustomAlert";
 import type { Weight } from "@/app/types";
 import useDateSelector from "@/app/_hooks/useDateSelection";
 
+import {
+  PencilSquareIcon,
+  PencilIcon,
+  TrashIcon,
+  CheckIcon,
+  XMarkIcon,
+} from "@heroicons/react/24/outline";
+
 interface WeightTableRowProps {
   label: string;
   weightDatum: Weight | null;
   userId: number;
+  maxWeightThisMonth: number | null;
+  minWeightThisMonth: number | null;
 }
 
 const WeightTableRow: React.FC<WeightTableRowProps> = ({
   label,
   weightDatum,
   userId,
+  maxWeightThisMonth,
+  minWeightThisMonth,
 }) => {
   const { createWeight, updateWeight, deleteWeight, message } =
     useWeightMutation();
@@ -32,21 +44,13 @@ const WeightTableRow: React.FC<WeightTableRowProps> = ({
     setIsEditing(true);
   };
 
-  // console.log("weightDatumRow", weightDatum);
-  // console.log("userId", userId);
-  // console.log("selectedYear", selectedYear);
-  // console.log("selectedMonth", selectedMonth);
-
   const measurementDate = new Date(
     selectedYear,
     selectedMonth - 1,
     Number(label),
   );
-  // console.log("measurementDate", measurementDate);
 
   const handleSave = async () => {
-    // weight と bodyFat は null でなく提供されると仮定
-    // null の場合はデフォルト値を使用
     const safeWeight = editWeight ?? 0; // null の場合はデフォルトで 0
     const safeBodyFat = editBodyFat ?? 0; // null の場合はデフォルトで 0
 
@@ -70,31 +74,41 @@ const WeightTableRow: React.FC<WeightTableRowProps> = ({
     }
     setIsEditing(false);
   };
+
+  const handleDelete = async () => {
+    if (weightDatum && weightDatum !== null) {
+      deleteWeight.mutate({ id: weightDatum.id });
+    }
+  };
+  const handleCancel = () => {
+    setIsEditing(false);
+  };
+
   useEffect(() => {
     if (isEditing) {
       inputRef.current?.focus();
     }
   }, [isEditing]);
 
-  const handleDelete = async () => {
-    if (weightDatum && weightDatum !== null) {
-      deleteWeight.mutate({ id: weightDatum.id });
-    }
+  const borderClass =
+    weightDatum?.weight != null && weightDatum.weight === maxWeightThisMonth
+      ? "border-l-4 border-red-500"
+      : weightDatum?.weight != null && weightDatum.weight === minWeightThisMonth
+        ? "border-l-4 border-blue-500"
+        : "";
 
-    useEffect(() => {
-      if (isEditing) {
-        inputRef.current?.focus();
-      }
-    }, [isEditing]);
-  };
-
-  const handleCancel = () => {
-    setIsEditing(false);
-  };
+  console.log(
+    "isMax",
+    maxWeightThisMonth === weightDatum?.weight,
+    "isMin",
+    minWeightThisMonth === weightDatum?.weight,
+  );
 
   return (
     <>
-      <tr>
+      <tr
+        className={`whitespace-nowrap px-6 py-4 text-center text-sm ${borderClass}`}
+      >
         <td className="whitespace-nowrap px-6 py-4 text-center text-sm font-medium text-gray-500">
           {label} 日
         </td>
@@ -130,29 +144,34 @@ const WeightTableRow: React.FC<WeightTableRowProps> = ({
         </td>
         <td>
           {isEditing ? (
-            <button className="mr-3 text-blue-500" onClick={handleSave}>
-              save
-            </button>
+            <CheckIcon
+              className="mr-3 h-5 w-5 cursor-pointer text-blue-500"
+              onClick={handleSave}
+            />
           ) : weightDatum ? (
-            <button className="mr-3 text-green-500" onClick={handleEdit}>
-              edit
-            </button>
+            <PencilSquareIcon
+              className="mr-3 h-5 w-5 cursor-pointer text-gray-500"
+              onClick={handleEdit}
+            />
           ) : (
-            <button className="mr-3 text-blue-500" onClick={handleEdit}>
-              create
-            </button>
+            <PencilIcon
+              className="mr-3 h-5 w-5 cursor-pointer text-gray-500"
+              onClick={handleEdit}
+            />
           )}
         </td>
         <td>
           {isEditing ? (
-            <button className="text-gray-500" onClick={handleCancel}>
-              cancel
-            </button>
+            <XMarkIcon
+              className="h-5 w-5 cursor-pointer text-gray-500"
+              onClick={handleCancel}
+            />
           ) : (
             weightDatum && (
-              <button className="text-red-500" onClick={handleDelete}>
-                delete
-              </button>
+              <TrashIcon
+                className="h-5 w-5 cursor-pointer text-red-500"
+                onClick={handleDelete}
+              />
             )
           )}
         </td>
