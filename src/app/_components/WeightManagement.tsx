@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import WeightDiff from "./WeightDiff";
 import WeightDashboard from "./WeightDashboard";
 import WeightGraph from "./WeightGraph";
+import Image from "./Image";
 import type { Weight, User } from "@/app/types";
 
 interface WeightManagementProps {
@@ -30,11 +31,12 @@ const TabButton = ({ isSelected, onClick, children }: TabButtonProps) => (
 );
 
 const WeightManagement = ({ weights, user }: WeightManagementProps) => {
-  const [selectedTab, setSelectedTab] = useState("diff");
+  const [selectedTab, setSelectedTab] = useState("image");
   const tabs = [
     { key: "diff", label: "体重" },
     { key: "graph", label: "グラフ" },
     { key: "dashboard", label: "日別グラフ" },
+    { key: "image", label: "食事写真" },
   ];
 
   return (
@@ -66,6 +68,7 @@ const WeightManagement = ({ weights, user }: WeightManagementProps) => {
         {selectedTab === "dashboard" && (
           <WeightDashboard weights={weights} user={user} />
         )}
+        {selectedTab === "image" && <Image />}
       </div>
     </div>
   );

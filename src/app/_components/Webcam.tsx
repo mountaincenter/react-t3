@@ -24,7 +24,7 @@ const WebcamComponent = () => {
           videoConstraints={videoConstraints}
         />
       )}
-      <CameraIcon onClick={toggleCamera} />
+      <CameraIcon className="h-5 w-5" onClick={toggleCamera} />
     </>
   );
 };
