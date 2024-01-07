@@ -5,6 +5,7 @@ import { CreateWeight } from "@/app/_components/CreateWeight";
 import { type User } from "@/app/types";
 import WeightStats from "@/app/_components/WeightStats";
 import WeightManagement from "@/app/_components/WeightManagement";
+import WebcamComponent from "./_components/Webcam";
 
 export default async function Home() {
   const posts = await api.post.getAllPosts.query();
@@ -40,6 +41,7 @@ export default async function Home() {
           <TodoList posts={posts} />
         </div>
       </div>
+      <WebcamComponent />
     </main>
   );
 }
