@@ -106,10 +106,10 @@ const WeightTableRow: React.FC<WeightTableRowProps> = ({
 
   return (
     <>
-      <tr
-        className={`whitespace-nowrap px-6 py-4 text-center text-sm ${borderClass}`}
-      >
-        <td className="whitespace-nowrap px-6 py-4 text-center text-sm font-medium text-gray-500">
+      <tr className="whitespace-nowrap rounded px-6 py-4 text-center text-sm">
+        <td
+          className={`whitespace-nowrap px-6 py-4 text-center text-sm font-medium text-gray-500 ${borderClass}`}
+        >
           {label} 日
         </td>
         <td className={"whitespace-nowrap px-6 py-4 text-center text-sm"}>
