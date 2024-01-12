@@ -1,9 +1,10 @@
 import "@/styles/globals.css";
-
 import { Inter } from "next/font/google";
 import { cookies } from "next/headers";
-
 import { TRPCReactProvider } from "@/trpc/react";
+import { NextSSRPlugin } from "@uploadthing/react/next-ssr-plugin";
+import { extractRouterConfig } from "uploadthing/server";
+import { OurFileRouter } from "@/server/api/routers/imageUploader";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -24,6 +25,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`font-sans ${inter.variable}`}>
+        <NextSSRPlugin routerConfig={extractRouterConfig(OurFileRouter)} />
         <TRPCReactProvider cookies={cookies().toString()}>
           {children}
         </TRPCReactProvider>

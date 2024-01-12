@@ -1,34 +1,23 @@
-import React from "react";
-import WebcamComponent from "./Webcam";
-import Image from "next/image";
-import sampleImage from "../../../public/sample.jpg";
-import sampleImage2 from "../../../public/sample2.jpg";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Pagination, Navigation } from "swiper/modules";
-import "swiper/css";
-import "swiper/css/navigation";
-import "swiper/css/pagination";
+"use client";
 
-const ImageComponent = () => {
-  const Images = [sampleImage, sampleImage2];
+import { UploadButton } from "@/app/_utils/uploadthing";
+
+const Image = () => {
   return (
-    <>
-      <Swiper
-        modules={[Navigation, Pagination]}
-        spaceBetween={50}
-        slidesPerView={1}
-        navigation
-        pagination={{ clickable: true }}
-      >
-        {Images.map((image) => (
-          <SwiperSlide>
-            <Image src={image} alt="" />
-          </SwiperSlide>
-        ))}
-      </Swiper>
-      <WebcamComponent />
-    </>
+    <main className="flex min-h-screen flex-col items-center justify-between p-24">
+      <div>Image</div>
+      <UploadButton
+        endpoint="imageUploader"
+        onClientUploadComplete={(res) => {
+          console.log("Files:", res);
+          alert("Files uploaded!");
+        }}
+        onUploadError={(error: Error) => {
+          alert(`Error: ${error.message}`);
+        }}
+      />
+    </main>
   );
 };
 
-export default ImageComponent;
+export default Image;

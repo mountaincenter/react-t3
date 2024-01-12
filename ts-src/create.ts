@@ -3,11 +3,11 @@ import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
 async function main() {
-  await prisma.weight.create({
+  await prisma.mealPhoto.create({
     data: {
-      weight: 91.7,
-      bodyFat: 34.88,
-      measurementDate: new Date("2023-12-28"),
+      url: "https://example.com",
+      registeredDate: new Date("2024-01-08"),
+      mealType: "breakfast",
       userId: 1,
     },
   });
