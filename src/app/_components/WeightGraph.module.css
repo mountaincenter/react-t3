@@ -1,0 +1,23 @@
+.sample-slider {
+  position: static !important;
+  display: grid !important;
+}
+.sample-slider [class^="swiper-button-"] {
+  inset: initial;
+  margin: 0;
+  align-self: center;
+}
+.sample-slider .swiper-button-prev {
+  justify-self: start;
+  margin-left: 0px;
+}
+.sample-slider .swiper-button-next {
+  justify-self: end;
+  margin-right: 0px;
+}
+.sample-slider .swiper-pagination {
+  inset: initial !important;
+  align-self: end;
+  justify-self: center;
+  margin-bottom: -20px;
+}

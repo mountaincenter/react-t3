@@ -35,9 +35,10 @@ ChartJS.register(
 
 interface WeightGraphProps {
   weights: Weight[];
+  onGraphClick?: () => void;
 }
 
-const WeightGraph = ({ weights }: WeightGraphProps) => {
+const BodyFatGraph = ({ weights, onGraphClick }: WeightGraphProps) => {
   const { handleDateChange, labels, daysInMonth } = useDateSelection();
   const { bodyFatData } = useWeightData(weights, daysInMonth);
 
@@ -86,9 +87,11 @@ const WeightGraph = ({ weights }: WeightGraphProps) => {
   return (
     <>
       <DateSelector onDateChange={handleDateChange} />
-      <Chart type="line" data={generateChartData} options={options} />
+      <div onClick={onGraphClick}>
+        <Chart type="line" data={generateChartData} options={options} />
+      </div>
     </>
   );
 };
 
-export default WeightGraph;
+export default BodyFatGraph;

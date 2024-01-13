@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Pagination } from "swiper/modules";
+import { Navigation, Pagination, A11y } from "swiper/modules";
 import type { Weight } from "@/app/types";
 import WeightDataGraph from "./WeightDataGraph";
 import BodyFatGraph from "./BodyFatGraph";
@@ -47,50 +47,61 @@ const FullscreenDialog = ({
       <div className="absolute right-0 top-0 p-4">
         <button onClick={onClose}>Close</button>
       </div>
-      {children}
-    </dialog>
-  );
-};
-
-const WeightGraph = ({ weights, targetWeight }: WeightGraphProps) => {
-  const [isDialogOpen, setIsDialogOpen] = useState<boolean>(false);
-  const [selectedGraph, setSelectedGraph] = useState<React.ReactNode | null>(
-    null,
-  );
-
-  const handleGraphClick = (graphComponent: React.ReactNode) => {
-    setSelectedGraph(graphComponent);
-    setIsDialogOpen(true);
-  };
-  return (
-    <>
       <Swiper
         modules={[Navigation, Pagination]}
         spaceBetween={50}
         slidesPerView={1}
         navigation
         pagination={{ clickable: true }}
+        loop={true}
       >
-        <SwiperSlide
-          onClick={() =>
-            handleGraphClick(
-              <WeightDataGraph weights={weights} targetWeight={targetWeight} />,
-            )
-          }
-        >
-          <WeightDataGraph weights={weights} targetWeight={targetWeight} />
+        {children}
+      </Swiper>
+    </dialog>
+  );
+};
+
+const WeightGraph = ({ weights, targetWeight }: WeightGraphProps) => {
+  const [isDialogOpen, setIsDialogOpen] = useState<boolean>(false);
+  const [, setSelectedGraphIndex] = useState<number>(0);
+
+  const handleGraphClick = (index: number) => {
+    setSelectedGraphIndex(index);
+    setIsDialogOpen(true);
+  };
+  return (
+    <>
+      <Swiper
+        modules={[Navigation, Pagination, A11y]}
+        spaceBetween={50}
+        navigation
+        pagination={{ clickable: true }}
+        loop={true}
+      >
+        <SwiperSlide>
+          <WeightDataGraph
+            weights={weights}
+            targetWeight={targetWeight}
+            onGraphClick={() => handleGraphClick(0)}
+          />
         </SwiperSlide>
-        <SwiperSlide
-          onClick={() => handleGraphClick(<BodyFatGraph weights={weights} />)}
-        >
-          <BodyFatGraph weights={weights} />
+        <SwiperSlide>
+          <BodyFatGraph
+            weights={weights}
+            onGraphClick={() => handleGraphClick(1)}
+          />
         </SwiperSlide>
       </Swiper>
       <FullscreenDialog
         isOpen={isDialogOpen}
         onClose={() => setIsDialogOpen(false)}
       >
-        {selectedGraph}
+        <SwiperSlide>
+          <WeightDataGraph weights={weights} targetWeight={targetWeight} />
+        </SwiperSlide>
+        <SwiperSlide>
+          <BodyFatGraph weights={weights} />
+        </SwiperSlide>
       </FullscreenDialog>
     </>
   );

@@ -54,12 +54,16 @@ const useWeightData = (weights: Weight[], daysInMonth: Date[]) => {
       0,
     );
 
-    if (relevantWeights.length > 0) {
-      const averageWeight = totalWeight / relevantWeights.length;
-      return parseFloat(averageWeight.toFixed(1));
-    } else {
-      return null;
-    }
+    const beforeToday =
+      weights[0] &&
+      (endDate.getTime() < weights[0].measurementDate.getTime() ||
+        endDate.getTime() === weights[0].measurementDate.getTime());
+
+    console.log("endDate", endDate, "beforeToday", beforeToday);
+
+    return relevantWeights.length > 0 && beforeToday
+      ? parseFloat((totalWeight / relevantWeights.length).toFixed(1))
+      : null;
   };
 
   const movingAverages = daysInMonth.map((date) => {

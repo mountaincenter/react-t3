@@ -36,9 +36,14 @@ ChartJS.register(
 interface WeightGraphProps {
   weights: Weight[];
   targetWeight?: number | null;
+  onGraphClick?: () => void;
 }
 
-const WeightGraph = ({ weights, targetWeight }: WeightGraphProps) => {
+const WeightDataGraph = ({
+  weights,
+  targetWeight,
+  onGraphClick,
+}: WeightGraphProps) => {
   const { handleDateChange, labels, daysInMonth } = useDateSelection();
   const { weightData, weightValues, movingAverages } = useWeightData(
     weights,
@@ -52,8 +57,6 @@ const WeightGraph = ({ weights, targetWeight }: WeightGraphProps) => {
     allWeightData.length > 0 ? Math.max(...allWeightData) + 5 : 0;
   const minWeight =
     allWeightData.length > 0 ? Math.min(...allWeightData) - 5 : 0;
-
-  console.log("movingAverages", movingAverages);
 
   const generateChartData = {
     labels: labels,
@@ -154,9 +157,11 @@ const WeightGraph = ({ weights, targetWeight }: WeightGraphProps) => {
   return (
     <>
       <DateSelector onDateChange={handleDateChange} />
-      <Chart type="bar" data={generateChartData} options={options} />
+      <div onClick={onGraphClick}>
+        <Chart type="bar" data={generateChartData} options={options} />
+      </div>
     </>
   );
 };
 
-export default WeightGraph;
+export default WeightDataGraph;
