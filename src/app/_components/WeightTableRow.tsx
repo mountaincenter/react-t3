@@ -97,12 +97,12 @@ const WeightTableRow: React.FC<WeightTableRowProps> = ({
         ? "border-l-4 border-blue-500"
         : "";
 
-  console.log(
-    "isMax",
-    maxWeightThisMonth === weightDatum?.weight,
-    "isMin",
-    minWeightThisMonth === weightDatum?.weight,
-  );
+  // console.log(
+  //   "isMax",
+  //   maxWeightThisMonth === weightDatum?.weight,
+  //   "isMin",
+  //   minWeightThisMonth === weightDatum?.weight,
+  // );
 
   return (
     <>

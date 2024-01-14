@@ -5,7 +5,7 @@ import { CreateWeight } from "@/app/_components/CreateWeight";
 import { type User } from "@/app/types";
 import WeightStats from "@/app/_components/WeightStats";
 import WeightManagement from "@/app/_components/WeightManagement";
-import WebcamComponent from "./_components/Webcam";
+import WebcamComponent from "./_components/WebcamComponent";
 
 export default async function Home() {
   const posts = await api.post.getAllPosts.query();
