@@ -2,16 +2,16 @@ import { useState } from "react";
 import { api } from "@/trpc/react";
 import { useRouter } from "next/navigation";
 
-export const usePostMutation = (onCreatePostSuccess?: () => void) => {
+export const useMealPhotoMutation = (onCreateMealPhotoSuccess?: () => void) => {
   const router = useRouter();
   const [message, setMessage] = useState<string>("");
 
-  const createPost = api.post.createPost.useMutation({
+  const createMealPhoto = api.mealPhoto.createMealPhoto.useMutation({
     onSuccess: () => {
       setMessage("投稿が完了しました");
       setTimeout(() => setMessage(""), 3000);
       router.refresh();
-      if (onCreatePostSuccess) onCreatePostSuccess();
+      if (onCreateMealPhotoSuccess) onCreateMealPhotoSuccess();
     },
     onError: () => {
       setMessage("投稿に失敗しました");
@@ -19,7 +19,7 @@ export const usePostMutation = (onCreatePostSuccess?: () => void) => {
     },
   });
 
-  const updatePost = api.post.updatePost.useMutation({
+  const updateMealPhoto = api.mealPhoto.updateMealPhoto.useMutation({
     onSuccess: () => {
       setMessage("更新が完了しました");
       setTimeout(() => setMessage(""), 3000);
@@ -31,7 +31,7 @@ export const usePostMutation = (onCreatePostSuccess?: () => void) => {
     },
   });
 
-  const deletePost = api.post.deletePost.useMutation({
+  const deleteMealPhoto = api.mealPhoto.deleteMealPhoto.useMutation({
     onSuccess: () => {
       setMessage("削除が完了しました");
       setTimeout(() => setMessage(""), 3000);
@@ -43,5 +43,5 @@ export const usePostMutation = (onCreatePostSuccess?: () => void) => {
     },
   });
 
-  return { message, createPost, updatePost, deletePost };
+  return { message, createMealPhoto, updateMealPhoto, deleteMealPhoto };
 };

@@ -2,7 +2,7 @@
 
 import React from "react";
 import WeightTable from "./WeightTable";
-import DateSelector from "./DateSelector";
+import DateSelector from "./MonthSelector";
 import useDateSelection from "@/app/_hooks/useDateSelection";
 import type { Weight, User } from "@/app/types";
 

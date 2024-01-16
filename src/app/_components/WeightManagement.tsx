@@ -68,7 +68,7 @@ const WeightManagement = ({ weights, user }: WeightManagementProps) => {
         {selectedTab === "dashboard" && (
           <WeightDashboard weights={weights} user={user} />
         )}
-        {selectedTab === "image" && <ImageCapture />}
+        {selectedTab === "image" && <ImageCapture user={user} />}
       </div>
     </div>
   );

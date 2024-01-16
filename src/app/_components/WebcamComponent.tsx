@@ -5,16 +5,13 @@ import { supabase } from "@/app/_utils/supabaseClient";
 import Image from "next/image";
 
 interface WebcamComponentProps {
-  isCameraActive: boolean;
   setIsCameraActive: (isActive: boolean) => void;
 }
 
-const WebcamComponent = ({
-  isCameraActive,
-  setIsCameraActive,
-}: WebcamComponentProps) => {
+const WebcamComponent = ({ setIsCameraActive }: WebcamComponentProps) => {
   const webcamRef = useRef<Webcam>(null);
   const [image, setImage] = useState<string | null>(null);
+  const [isCameraReady, setIsCameraReady] = useState<boolean>(true);
 
   const videoConstraints = {
     facingMode: "environment",
@@ -24,10 +21,10 @@ const WebcamComponent = ({
     const imageSrc = webcamRef.current?.getScreenshot();
     if (imageSrc) {
       setImage(imageSrc);
-      setIsCameraActive(false);
-      console.log("image", image);
+      setIsCameraReady(false);
     }
   };
+
   const saveImage = async () => {
     if (image) {
       setImage(image);
@@ -35,8 +32,11 @@ const WebcamComponent = ({
       const response = await fetch(image);
       const blob = await response.blob();
 
+      const now = new Date();
+      const timestamp = now.toISOString().replace(/[-:T]/g, "").slice(0, 14);
+
       const fileExt = "jpg";
-      const fileName = `${Math.random()}.${fileExt}`;
+      const fileName = `${timestamp}.${fileExt}`;
       const filePath = `${fileName}`;
 
       const { error } = await supabase.storage
@@ -47,31 +47,33 @@ const WebcamComponent = ({
       } else {
         alert("File uploaded successfully!");
         setImage(null);
+        setIsCameraActive(false);
       }
     }
   };
 
   const discardImage = () => {
     setImage(null);
+    setIsCameraActive(false);
   };
 
   return (
     <div className="container mx-auto p-4">
-      {isCameraActive && (
-        <Webcam
-          audio={false}
-          ref={webcamRef}
-          videoConstraints={videoConstraints}
-          className="mb-4"
-        />
-      )}
-      {isCameraActive && (
-        <button
-          onClick={captureImage}
-          className="mt-4 rounded bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700"
-        >
-          Capture
-        </button>
+      {isCameraReady && (
+        <>
+          <Webcam
+            audio={false}
+            ref={webcamRef}
+            videoConstraints={videoConstraints}
+            className="mb-4"
+          />
+          <button
+            onClick={captureImage}
+            className="mt-4 rounded bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700"
+          >
+            Capture
+          </button>
+        </>
       )}
       {image && (
         <>

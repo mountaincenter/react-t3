@@ -19,8 +19,11 @@ const ImageUploader = ({ file, onReset }: ImageUploaderProps) => {
   const saveImage = async () => {
     if (!(file instanceof File)) return;
 
+    const now = new Date();
+    const timestamp = now.toISOString().replace(/[-:T]/g, "").slice(0, 14);
+
     const fileExt = file.name.split(".").pop();
-    const fileName = `${Math.random()}.${fileExt}`;
+    const fileName = `${timestamp}.${fileExt}`;
     const filePath = `${fileName}`;
 
     const { error } = await supabase.storage

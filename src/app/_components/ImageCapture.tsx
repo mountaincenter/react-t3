@@ -3,8 +3,14 @@
 import React, { useState, useRef } from "react";
 import ImageUploader from "./ImageUploader";
 import WebcamComponent from "./WebcamComponent";
+import CreateMealPhoto from "./CreateMealPhoto";
+import { type User } from "@/app/types";
 
-const ImageCapture = () => {
+interface ImageCaptureProps {
+  user: User;
+}
+
+const ImageCapture = ({ user }: ImageCaptureProps) => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [showWebcam, setShowWebcam] = useState<boolean>(false);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
@@ -29,7 +35,8 @@ const ImageCapture = () => {
   };
 
   return (
-    <div className="flex flex-col items-center ">
+    <div className="flex flex-col items-center">
+      <CreateMealPhoto userId={user.id} />
       <input
         type="file"
         accept="image/*"
@@ -52,12 +59,7 @@ const ImageCapture = () => {
       {selectedFile && (
         <ImageUploader file={selectedFile} onReset={resetFileSelection} />
       )}
-      {showWebcam && (
-        <WebcamComponent
-          isCameraActive={showWebcam}
-          setIsCameraActive={setShowWebcam}
-        />
-      )}
+      {showWebcam && <WebcamComponent setIsCameraActive={setShowWebcam} />}
     </div>
   );
 };

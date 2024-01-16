@@ -29,3 +29,17 @@ export interface Weight {
   createdAt: Date;
   updatedAt: Date;
 }
+
+export interface MealPhoto {
+  id: number;
+  url: string;
+  registeredDate: Date;
+  mealType: string;
+  userId: number;
+  description?: string;
+  mealCalories?: number;
+  rating?: number;
+  user: User;
+  createdAt: Date;
+  updatedAt: Date;
+}
