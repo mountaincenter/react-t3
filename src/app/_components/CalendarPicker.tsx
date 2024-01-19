@@ -12,6 +12,7 @@ setDefaultLocale("ja");
 
 interface CalendarPickerProps {
   onDayChange: (date: Date) => void;
+  measurementDates?: Date[];
 }
 
 const CustomInput = forwardRef<
@@ -23,7 +24,10 @@ const CustomInput = forwardRef<
   </button>
 ));
 
-const CalendarPicker: React.FC<CalendarPickerProps> = ({ onDayChange }) => {
+const CalendarPicker: React.FC<CalendarPickerProps> = ({
+  onDayChange,
+  measurementDates,
+}) => {
   const [startDate, setStartDate] = useState(new Date());
 
   const handleChange = (date: Date) => {
@@ -39,6 +43,7 @@ const CalendarPicker: React.FC<CalendarPickerProps> = ({ onDayChange }) => {
       showTimeSelect={false}
       locale="ja"
       customInput={<CustomInput />}
+      highlightDates={measurementDates}
     />
   );
 };

@@ -27,7 +27,7 @@ const useDateSelection = (initialDates?: Date[]) => {
       initialDates &&
       initialDates.length > 0 &&
       initialDates[0] &&
-      !isSameDay(selectedDay, initialDates[0])
+      !initialDates.some((date) => isSameDay(date, selectedDay))
     ) {
       setselectedDay(initialDates[0]);
     }

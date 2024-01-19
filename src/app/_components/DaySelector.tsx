@@ -22,42 +22,85 @@ const DaySelector: React.FC<DaySelectorProps> = ({
   selectedDay,
   measurementDates,
 }) => {
-  const isLastMeasurementDay =
-    measurementDates &&
-    measurementDates.some(
-      (date) => isSameDay(date, selectedDay) || isAfter(date, selectedDay),
-    );
+  const OldestDay: Date | undefined =
+    measurementDates && measurementDates.length > 0
+      ? measurementDates.slice(-1)[0]
+      : undefined;
 
-  const isOldestMeasurementDay =
-    measurementDates &&
-    measurementDates.some(
-      (date) => isSameDay(date, selectedDay) || isBefore(date, selectedDay),
-    );
+  const canSelectPreviousDay =
+    OldestDay &&
+    isAfter(selectedDay, OldestDay) &&
+    !isSameDay(selectedDay, OldestDay);
+
+  const LatestDay: Date =
+    measurementDates && measurementDates.length > 0 && measurementDates?.[0]
+      ? measurementDates[0]
+      : new Date();
+
+  const canSelectNextDay =
+    isBefore(selectedDay, LatestDay) && !isSameDay(selectedDay, LatestDay);
 
   const handlePreviouDay = () => {
-    const newDate = subDays(selectedDay, 1);
-    onDayChange(newDate);
+    if (
+      measurementDates &&
+      measurementDates.length > 0 &&
+      measurementDates[0]
+    ) {
+      if (canSelectPreviousDay) {
+        const currentIndex: number = measurementDates.findIndex((date) =>
+          isSameDay(date, selectedDay),
+        );
+        console.log("currentIndex", currentIndex);
+        if (currentIndex > 0 || currentIndex === 0) {
+          const newDate = measurementDates[currentIndex + 1];
+          if (newDate) {
+            onDayChange(newDate);
+          }
+        }
+      }
+    }
+
+    if (!canSelectPreviousDay) {
+      const newDate = subDays(selectedDay, 1);
+      onDayChange(newDate);
+    }
   };
 
   const handleNextDay = () => {
-    const newDate = addDays(selectedDay, 1);
-    onDayChange(newDate);
+    if (canSelectNextDay) {
+      if (
+        measurementDates &&
+        measurementDates.length > 0 &&
+        measurementDates[0]
+      ) {
+        const currentIndex: number = measurementDates.findIndex((date) =>
+          isSameDay(date, selectedDay),
+        );
+        if (currentIndex > 0) {
+          const newDate = measurementDates[currentIndex - 1];
+          if (newDate) {
+            onDayChange(newDate);
+          }
+        }
+      } else {
+        const newDate = addDays(selectedDay, 1);
+        onDayChange(newDate);
+      }
+    }
   };
-
   const handleToday = () => {
     const newDate = new Date();
     onDayChange(newDate);
   };
 
-  // console.log(measurementDates);
-  // console.log("isLastMeasurementDay", isLastMeasurementDay);
-  // console.log("isOldestMeasurementDay", isOldestMeasurementDay);
-  console.log("selectedDay", selectedDay);
-
   return (
     <div className="mb-4 flex justify-center">
       <button onClick={handlePreviouDay} className="px-2 text-sm text-gray-500">
-        {"<"}
+        {canSelectPreviousDay !== false ? (
+          "<"
+        ) : (
+          <span style={{ opacity: 0 }}>{"<"}</span>
+        )}
       </button>
       <div className="mx-4">
         <span className="text-sm text-gray-500">
@@ -65,13 +108,15 @@ const DaySelector: React.FC<DaySelectorProps> = ({
         </span>
       </div>
       <button onClick={handleNextDay} className="px-2 text-sm text-gray-500">
-        {">"}
+        {canSelectNextDay ? ">" : <span style={{ opacity: 0 }}>{">"}</span>}
       </button>
       <button onClick={handleToday} className="px-2 text-sm text-gray-500">
         {"最新"}
       </button>
-
-      <CalendarPicker onDayChange={onDayChange} />
+      <CalendarPicker
+        onDayChange={onDayChange}
+        measurementDates={measurementDates}
+      />
     </div>
   );
 };
