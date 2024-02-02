@@ -44,7 +44,7 @@ const WeightDataGraph = ({
   targetWeight,
   onGraphClick,
 }: WeightGraphProps) => {
-  const { handleDateChange, labels, daysInMonth } = useDateSelection();
+  const { handleMonthChange, labels, daysInMonth } = useDateSelection();
   const { weightData, weightValues, movingAverages } = useWeightData(
     weights,
     daysInMonth,
@@ -156,7 +156,7 @@ const WeightDataGraph = ({
 
   return (
     <>
-      <DateSelector onDateChange={handleDateChange} />
+      <DateSelector onDateChange={handleMonthChange} />
       <div onClick={onGraphClick}>
         <Chart type="bar" data={generateChartData} options={options} />
       </div>

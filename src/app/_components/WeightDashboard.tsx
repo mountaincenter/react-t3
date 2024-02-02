@@ -12,10 +12,10 @@ interface WeightDashbordProps {
 }
 
 const WeightDashbord: React.FC<WeightDashbordProps> = ({ weights, user }) => {
-  const { handleDateChange, labels, daysInMonth } = useDateSelection();
+  const { handleMonthChange, labels, daysInMonth } = useDateSelection();
   return (
     <div>
-      <DateSelector onDateChange={handleDateChange} />
+      <DateSelector onDateChange={handleMonthChange} />
       <WeightTable
         weights={weights}
         labels={labels}

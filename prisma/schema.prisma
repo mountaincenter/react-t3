@@ -29,8 +29,8 @@ model User {
     age       Int?
     gender    String?
     targetWeight Float?
-    weight    Weight[]
-    mealPhoto MealPhoto[]
+    weights    Weight[]
+    mealPhotos MealPhoto[]
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
 
@@ -53,7 +53,7 @@ model MealPhoto{
     userId Int
     user User @relation(fields: [userId], references: [id])
     registeredDate DateTime
-    url String
+    url String?
     mealType String
     description String?
     mealCalorie Float?
@@ -61,12 +61,13 @@ model MealPhoto{
     ratings Int?
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
+    mealTaken Boolean @default(true)
 }
 
 model MealTag {
     id Int @id @default(autoincrement())
     name String
-    mealPhoto MealPhoto[]
+    mealPhotos MealPhoto[]
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
 }

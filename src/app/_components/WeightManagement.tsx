@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import WeightDiff from "./WeightDiff";
 import WeightDashboard from "./WeightDashboard";
 import WeightGraph from "./WeightGraph";
-import ImageCapture from "./ImageCapture";
+import MealPhoto from "./MealPhoto";
 import type { Weight, User } from "@/app/types";
 
 interface WeightManagementProps {
@@ -68,7 +68,7 @@ const WeightManagement = ({ weights, user }: WeightManagementProps) => {
         {selectedTab === "dashboard" && (
           <WeightDashboard weights={weights} user={user} />
         )}
-        {selectedTab === "image" && <ImageCapture user={user} />}
+        {selectedTab === "image" && <MealPhoto user={user} />}
       </div>
     </div>
   );

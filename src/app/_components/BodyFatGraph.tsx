@@ -39,7 +39,7 @@ interface WeightGraphProps {
 }
 
 const BodyFatGraph = ({ weights, onGraphClick }: WeightGraphProps) => {
-  const { handleDateChange, labels, daysInMonth } = useDateSelection();
+  const { handleMonthChange, labels, daysInMonth } = useDateSelection();
   const { bodyFatData } = useWeightData(weights, daysInMonth);
 
   const generateChartData = {
@@ -86,7 +86,7 @@ const BodyFatGraph = ({ weights, onGraphClick }: WeightGraphProps) => {
 
   return (
     <>
-      <DateSelector onDateChange={handleDateChange} />
+      <DateSelector onDateChange={handleMonthChange} />
       <div onClick={onGraphClick}>
         <Chart type="line" data={generateChartData} options={options} />
       </div>

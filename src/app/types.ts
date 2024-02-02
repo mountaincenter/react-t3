@@ -14,7 +14,8 @@ export interface User {
   age?: number;
   gender?: string;
   targetWeight?: number;
-  weight: Weight[];
+  weights: Weight[];
+  mealPhotos: MealPhoto[];
   createdAt: Date;
   updatedAt: Date;
 }
@@ -32,14 +33,15 @@ export interface Weight {
 
 export interface MealPhoto {
   id: number;
-  url: string;
+  url: string | null;
   registeredDate: Date;
   mealType: string;
   userId: number;
   description?: string;
   mealCalories?: number;
-  rating?: number;
+  ratings?: number;
   user: User;
   createdAt: Date;
   updatedAt: Date;
+  mealTaken: boolean;
 }

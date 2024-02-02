@@ -29,8 +29,36 @@ Follow our deployment guides for [Vercel](https://create.t3.gg/en/deployment/ver
 
 # react-t3
 
-| weight | bodyFat | new | edit | delete |
-| :----: | :-----: | :-: | :--: | :----: |
-|   ⭕️   |  　⭕️   | ❌  |  ⭕️  |  ⭕️　  |
-|   ⭕️   | 　null  | ❌  |  ⭕️  |  ⭕️　  |
-|  null  |  null   | ⭕️  |  ❌  |  ❌　  |
+```
+.
+├── ActionButtons.tsx
+├── BodyFatGraph.tsx
+├── CalendarPicker.tsx
+├── CreateMealPhoto.tsx
+├── CreatePost.tsx
+├── CreateWeight.tsx
+├── CustomAlert.tsx
+├── DaySelector.tsx
+├── EditDeleteDialog.tsx
+├── ImageUploader.tsx
+├── MealCard.tsx
+├── MealDescriptionForm.tsx
+├── MealPhoto.tsx
+├── MealRegistrationForm.tsx
+├── MonthSelector.tsx
+├── RatingComponent.tsx
+├── RegistrationIcons.tsx
+├── SelectedMeal.tsx
+├── Todo.tsx
+├── TodoList.tsx
+├── WebcamComponent.tsx
+├── WeightDashboard.tsx
+├── WeightDataGraph.tsx
+├── WeightDiff.tsx
+├── WeightGraph.module.css
+├── WeightGraph.tsx
+├── WeightManagement.tsx
+├── WeightStats.tsx
+├── WeightTable.tsx
+└── WeightTableRow.tsx
+```

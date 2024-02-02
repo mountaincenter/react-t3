@@ -17,17 +17,17 @@ export default async function Home() {
       {/* <h1 className="text-4xl font-bold text-gray-700">T3 Nextjs App</h1> */}
       <div className="mt-5 w-full max-w-xl items-center justify-center">
         <div className="w-full rounded-lg bg-white px-8 py-6 shadow-md">
-          {user.weight && (
+          {user.weights && (
             <>
-              <WeightStats weights={user.weight} height={user.height} />
-              <CreateWeight userId={user.id} initialWeight={user.weight[0]} />
+              <WeightStats weights={user.weights} height={user.height} />
+              <CreateWeight userId={user.id} initialWeight={user.weights[0]} />
             </>
           )}
         </div>
       </div>
       <div className="mt-5 w-full max-w-xl items-center justify-center">
         <div className="w-full rounded-lg bg-white px-8 py-6 shadow-md">
-          <WeightManagement weights={user.weight} user={user} />
+          <WeightManagement weights={user.weights} user={user} />
         </div>
       </div>
       <div className="mt-5 w-full max-w-xl items-center justify-center">

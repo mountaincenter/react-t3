@@ -3,13 +3,14 @@ import { createTRPCRouter, publicProcedure } from "@/server/api/trpc";
 import { mealPhotoHandler } from "@/server/handlers/mealPhotoHandler";
 
 const mealPhotoSchema = z.object({
-  url: z.string(),
+  url: z.string().nullable().optional(),
   registeredDate: z.date(),
   mealType: z.string(),
   userId: z.number(),
   description: z.string().nullable().optional(),
   mealCalories: z.number().nullable().optional(),
-  rating: z.number().nullable().optional(),
+  ratings: z.number().nullable().optional(),
+  mealTaken: z.boolean(),
 });
 
 export const mealPhotoRouter = createTRPCRouter({
@@ -35,6 +36,9 @@ export const mealPhotoRouter = createTRPCRouter({
       }),
     )
     .mutation(async ({ input }) => {
+      if (input.data.url === undefined) {
+        input.data.url = null;
+      }
       return await mealPhotoHandler.updateMealPhoto(input.id, input.data);
     }),
   deleteMealPhoto: publicProcedure

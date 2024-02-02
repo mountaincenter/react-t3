@@ -13,13 +13,14 @@ export const mealPhotoHandler = {
     });
   },
   async createMealPhoto(data: {
-    url: string;
+    url?: string | null;
     registeredDate: Date;
     mealType: string;
     userId: number;
     description?: string | null;
     mealCalories?: number | null;
-    rating?: number | null;
+    ratings?: number | null;
+    mealTaken: boolean;
   }): Promise<MealPhoto> {
     return await prisma.mealPhoto.create({
       data,
