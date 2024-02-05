@@ -9,8 +9,10 @@ export const useMealPhotoMutation = (onCreateMealPhotoSuccess?: () => void) => {
   const createMealPhoto = api.mealPhoto.createMealPhoto.useMutation({
     onSuccess: () => {
       setMessage("投稿が完了しました");
-      setTimeout(() => setMessage(""), 3000);
-      router.refresh();
+      setTimeout(() => {
+        setMessage("");
+        router.refresh();
+      }, 3000);
       if (onCreateMealPhotoSuccess) onCreateMealPhotoSuccess();
     },
     onError: () => {
@@ -22,8 +24,10 @@ export const useMealPhotoMutation = (onCreateMealPhotoSuccess?: () => void) => {
   const updateMealPhoto = api.mealPhoto.updateMealPhoto.useMutation({
     onSuccess: () => {
       setMessage("更新が完了しました");
-      setTimeout(() => setMessage(""), 3000);
-      router.refresh();
+      setTimeout(() => {
+        setMessage("");
+        router.refresh();
+      }, 3000);
     },
     onError: () => {
       setMessage("更新に失敗しました");
@@ -34,8 +38,10 @@ export const useMealPhotoMutation = (onCreateMealPhotoSuccess?: () => void) => {
   const deleteMealPhoto = api.mealPhoto.deleteMealPhoto.useMutation({
     onSuccess: () => {
       setMessage("削除が完了しました");
-      setTimeout(() => setMessage(""), 3000);
-      router.refresh();
+      setTimeout(() => {
+        setMessage("");
+        router.refresh();
+      }, 3000);
     },
     onError: () => {
       setMessage("削除に失敗しました");

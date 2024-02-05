@@ -2,13 +2,16 @@
 import React, { useRef, useState, useEffect } from "react";
 import Webcam from "react-webcam";
 import Image from "next/image";
+import ActionButtons from "./ActionButtons";
 
 interface WebcamComponentProps {
   onImageCaptured: (image: string) => void;
+  handleCancel: () => void;
 }
 
 const WebcamComponent: React.FC<WebcamComponentProps> = ({
   onImageCaptured,
+  handleCancel,
 }) => {
   const webcamRef = useRef<Webcam>(null);
   const [imageSrc, setImageSrc] = useState<string | null>(null);
@@ -43,12 +46,11 @@ const WebcamComponent: React.FC<WebcamComponentProps> = ({
             videoConstraints={videoConstraints}
             className="mb-4"
           />
-          <button
-            onClick={captureImage}
-            className="mt-4 w-full rounded bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700"
-          >
-            撮影
-          </button>
+          <ActionButtons
+            onSaveClick={captureImage}
+            onCancelClick={handleCancel}
+            submitText="撮影"
+          />
         </>
       )}
       {imageSrc && (

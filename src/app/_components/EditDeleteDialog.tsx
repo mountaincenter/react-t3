@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import type { MealPhoto } from "@/app/types";
 import { useMealPhotoMutation } from "../_hooks/useMealPhotoMutation";
+import CustomAlert from "./CustomAlert";
 
 interface EditDeleteDialogProps {
   onClose: () => void;
@@ -13,8 +14,7 @@ const EditDeleteDialog: React.FC<EditDeleteDialogProps> = ({
   onEdit,
   photo,
 }) => {
-  const { deleteMealPhoto } = useMealPhotoMutation();
-  console.log("photo", photo);
+  const { deleteMealPhoto, message } = useMealPhotoMutation();
 
   useEffect(() => {
     const closeMenu = (e: MouseEvent) => {
@@ -46,6 +46,18 @@ const EditDeleteDialog: React.FC<EditDeleteDialogProps> = ({
           削除
         </button>
       </div>
+      {(deleteMealPhoto.isLoading ?? message) && (
+        <CustomAlert
+          message={deleteMealPhoto.isLoading ? "削除中" : message}
+          type={
+            deleteMealPhoto.isSuccess
+              ? "success"
+              : deleteMealPhoto.isLoading
+                ? "loading"
+                : "error"
+          }
+        />
+      )}
     </div>
   );
 };

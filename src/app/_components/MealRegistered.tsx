@@ -129,7 +129,10 @@ const MealRegistered: React.FC<MealCardProps> = ({ photo, user }) => {
           )}
           {selectedFile && <ImageUploader file={selectedFile} />}
           {showWebcam && (
-            <WebcamComponent onImageCaptured={handleImageCaptured} />
+            <WebcamComponent
+              onImageCaptured={handleImageCaptured}
+              handleCancel={handleCancel}
+            />
           )}
           <input
             type="file"
@@ -165,7 +168,7 @@ const MealRegistered: React.FC<MealCardProps> = ({ photo, user }) => {
                   initialRatings={photo.ratings ?? 0}
                   readOnly={true}
                 />
-                <p>
+                <p className="text-gray-500">
                   {photo.mealTaken
                     ? photo.description
                     : "ご飯は食べませんでした"}

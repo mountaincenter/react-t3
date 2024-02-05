@@ -16,7 +16,7 @@ const RatingComponent: React.FC<RatingComponentProps> = ({
   const [ratings, setRatings] = useState<number>(initialRatings);
   const [hoverRatings, setHoverRatings] = useState<number>(0);
 
-  console.log("initialRatings", initialRatings);
+  // console.log("initialRatings", initialRatings);
 
   useEffect(() => {
     setRatings(initialRatings);

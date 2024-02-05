@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { usePostMutation } from "../_hooks/usePostMutation";
 import CustomAlert from "./CustomAlert";
 
@@ -10,6 +10,10 @@ export function CreatePost() {
     setContent("");
   };
   const { createPost, message } = usePostMutation(handleCreatePostSuccess);
+
+  useEffect(() => {
+    console.log("CreatePost", message);
+  }, [message]);
 
   return (
     <>

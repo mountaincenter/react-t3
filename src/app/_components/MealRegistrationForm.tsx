@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import type { User } from "@/app/types";
 import { useMealPhotoMutation } from "../_hooks/useMealPhotoMutation";
 import RatingComponent from "./RatingComponent";
@@ -46,6 +46,7 @@ const MealRegistrationForm: React.FC<MealRegistrationFormProps> = ({
 
   const handleWebcam = () => {
     setShowWebcam(true);
+    setIsEditing(true);
   };
 
   const handleCancel = async () => {
@@ -85,9 +86,13 @@ const MealRegistrationForm: React.FC<MealRegistrationFormProps> = ({
     handleNotEaten(selectedMeal, selectedDay);
   };
 
+  useEffect(() => {
+    console.log("message", message);
+  }, [message]);
+
   return (
     <>
-      <div className="flex flex-col justify-between space-y-8 p-6">
+      <div className="flex w-full flex-col justify-between space-y-8 p-6">
         <div className="h-full w-full rounded-t-md object-cover object-center">
           <div className="items-between flex items-center">
             {!isEditing && (
@@ -102,7 +107,10 @@ const MealRegistrationForm: React.FC<MealRegistrationFormProps> = ({
           </div>
           {selectedFile && <ImageUploader file={selectedFile} />}
           {showWebcam && (
-            <WebcamComponent onImageCaptured={handleImageCaptured} />
+            <WebcamComponent
+              onImageCaptured={handleImageCaptured}
+              handleCancel={handleCancel}
+            />
           )}
           <input
             type="file"
@@ -112,7 +120,7 @@ const MealRegistrationForm: React.FC<MealRegistrationFormProps> = ({
             className="hidden"
           />
         </div>
-        <div className="space-y-2">
+        <div className="w-full space-y-2">
           {isEditing ? (
             <MealDescriptionForm
               ratings={ratings}
@@ -123,7 +131,7 @@ const MealRegistrationForm: React.FC<MealRegistrationFormProps> = ({
           ) : (
             <>
               <RatingComponent initialRatings={ratings} readOnly={true} />
-              <p>食事の登録がありません</p>
+              <p className="text-gray-500">食事の登録がありません</p>
             </>
           )}
           {isEditing && (
@@ -136,8 +144,14 @@ const MealRegistrationForm: React.FC<MealRegistrationFormProps> = ({
       </div>
       {message && (
         <CustomAlert
-          message={message}
-          type={createMealPhoto.isSuccess ? "success" : "error"}
+          message={createMealPhoto.isLoading ? "登録中です" : message}
+          type={
+            createMealPhoto.isSuccess
+              ? "success"
+              : createMealPhoto.isLoading
+                ? "loading"
+                : "error"
+          }
         />
       )}
     </>
