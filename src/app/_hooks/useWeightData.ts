@@ -59,7 +59,7 @@ const useWeightData = (weights: Weight[], daysInMonth: Date[]) => {
       (endDate.getTime() < weights[0].measurementDate.getTime() ||
         endDate.getTime() === weights[0].measurementDate.getTime());
 
-    console.log("endDate", endDate, "beforeToday", beforeToday);
+    // console.log("endDate", endDate, "beforeToday", beforeToday);
 
     return relevantWeights.length > 0 && beforeToday
       ? parseFloat((totalWeight / relevantWeights.length).toFixed(1))
